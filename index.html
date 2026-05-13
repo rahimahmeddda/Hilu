@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Marry Me?</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      overflow:hidden;
+      background:black;
+      color:white;
+    }
+
+    .container{
+      position:relative;
+      width:100%;
+      height:100%;
+    }
+
+    video{
+      position:absolute;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+    }
+
+    .content{
+      position:absolute;
+      z-index:2;
+      width:100%;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    h1{
+      font-size:3rem;
+      margin-bottom:15px;
+      animation:fade 1s ease;
+    }
+
+    p{
+      font-size:1.2rem;
+      max-width:600px;
+      opacity:0.9;
+      margin-bottom:35px;
+      line-height:1.6;
+    }
+
+    .buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    button{
+      padding:14px 28px;
+      border:none;
+      border-radius:50px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .yes{
+      background:white;
+      color:black;
+      font-weight:bold;
+    }
+
+    .yes:hover{
+      transform:scale(1.08);
+    }
+
+    .no{
+      background:transparent;
+      color:white;
+      border:2px solid white;
+      position:relative;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .heart{
+      position:absolute;
+      color:white;
+      font-size:20px;
+      animation:float 6s linear infinite;
+      opacity:0.7;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(100vh) scale(0);
+      }
+      100%{
+        transform:translateY(-10vh) scale(1.5);
+      }
+    }
+
+    .final{
+      font-size:3rem;
+      animation:fade 1s ease;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Replace with your own video -->
+  <video autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="content" id="mainContent">
+
+    <h1 id="title">Marrying a man in tech means...</h1>
+
+    <p id="subtitle">
+      your future husband fixes bugs faster than arguments 💻❤️
+    </p>
+
+    <div class="buttons">
+      <button class="yes" onclick="acceptLove()">
+        YES 💍
+      </button>
+
+      <button class="no" id="noBtn">
+        NO
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const messages = [
+    {
+      title:"Marrying a man in tech means...",
+      sub:"your future husband fixes bugs faster than arguments 💻❤️"
+    },
+
+    {
+      title:"Unlimited premium support included ☕",
+      sub:"free hugs, late night talks & terrible coding jokes"
+    },
+
+    {
+      title:"One lifetime subscription to love ❤️",
+      sub:"no ads, no trials, forever access"
+    },
+
+    {
+      title:"So...",
+      sub:"Will you marry me? 💍"
+    }
+  ];
+
+  let index = 0;
+
+  setInterval(() => {
+
+    index = (index + 1) % messages.length;
+
+    document.getElementById("title").innerText =
+      messages[index].title;
+
+    document.getElementById("subtitle").innerText =
+      messages[index].sub;
+
+  }, 3500);
+
+  const noBtn = document.getElementById("noBtn");
+
+  noBtn.addEventListener("mouseover", () => {
+
+    noBtn.style.position = "absolute";
+
+    noBtn.style.top =
+      Math.random() * 80 + "%";
+
+    noBtn.style.left =
+      Math.random() * 80 + "%";
+  });
+
+  function acceptLove(){
+
+    document.getElementById("mainContent").innerHTML = `
+      <div class="final">
+        SHE SAID YES 💍❤️
+      </div>
+    `;
+  }
+
+  // Floating hearts
+  function createHeart(){
+
+    const heart = document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.animationDuration =
+      (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+
+  setInterval(createHeart, 400);
+
+</script>
+
+</body>
+  </html>
